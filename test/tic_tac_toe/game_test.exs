@@ -10,6 +10,14 @@ defmodule TicTacToe.GameTest do
     ]
   end
 
+  test "Starting a game assigns the Original mode by default" do
+    assert Game.new().game_mode == TicTacToe.GameMode.Original
+  end
+
+  test "A game can be started in Notakto mode" do
+    assert Game.new(:Notakto).game_mode == TicTacToe.GameMode.Notakto
+  end
+
   test "Starting a game has no winner" do
     assert Game.new().winner == nil
   end

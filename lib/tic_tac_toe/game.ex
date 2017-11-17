@@ -5,11 +5,15 @@ defmodule TicTacToe.Game do
   defstruct(
     board: Board.new(),
     winner: nil,
-    current_player: nil
+    current_player: nil,
+    game_mode: nil
   )
 
-  def new() do
-    %TicTacToe.Game{current_player: Enum.random([:player1, :computer])}
+  def new(game_mode_name \\ :Original) do
+    %TicTacToe.Game{
+      current_player: Enum.random([:player1, :computer]),
+      game_mode: game_mode_for(game_mode_name)
+    }
   end
 
   def score(game = %{board: board}) do
@@ -72,4 +76,7 @@ defmodule TicTacToe.Game do
   defp update_board(game = %{current_player: :computer}, new_board, _valid_move) do
     %{ game | board: new_board, current_player: :player1 }
   end
+
+  defp game_mode_for(:Original), do: TicTacToe.GameMode.Original
+  defp game_mode_for(:Notakto), do: TicTacToe.GameMode.Notakto
 end
